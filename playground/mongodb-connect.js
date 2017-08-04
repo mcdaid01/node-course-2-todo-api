@@ -1,7 +1,7 @@
 //const MongoClient = require("mongodb").MongoClient;
 
 
-const {MongoClient,ObjectID} = require("mongodb");// get more than one out
+const {MongoClient,ObjectID} = require("mongodb");// note using deconstruction to get two const which are properties of the returned object
 
 
 /* example of destructoring 
