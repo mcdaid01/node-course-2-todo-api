@@ -5,6 +5,9 @@ const {mongoose} = require("./db/mongoose");
 const {Todo} = require("./models/todo");
 const {User} = require("./models/user");
 
+const {ObjectID} = require("mongodb");
+
+
 const port = process.env.PORT || 3001;
 
 
@@ -28,6 +31,34 @@ app.get('/todos',(req,res)=>{
     Todo.find().then( (todos)=>{
         res.send({todos})
     },(e)=>console.log("caught",e) );
+});
+
+app.get("/todos/:id",(req,res)=>{
+    //req.params
+    const id=req.params.id;
+
+    if (!ObjectID.isValid(id))
+        return res.status(404).send({});
+    
+    Todo.findById(id).then((todo)=>{ // best one for this case
+        if (!todo)
+            return res.status(404).send({});
+        console.log(todo);
+        res.status(200)
+            .send({todo});
+    }).catch((e)=> res.status(400).send());
+        
+    return console.log("ID not valid");
+
+
+    // validate id
+        // respond 404, send empty body
+
+    // query database using find by id
+        // success
+        // error
+            // 400 - not valid
+    
 });
 
 
