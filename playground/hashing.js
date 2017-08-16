@@ -1,5 +1,6 @@
 const secret = "abc123";
 const salt="somesecret"; // not sure any difference in term
+const bcrypt= require("bcryptjs");
 
 if (false){
     
@@ -45,17 +46,40 @@ if (false){
 // appears the token means payload can be viewed
 // but not manipulated
 
-const jwt =  require('jsonwebtoken');
+if (false){
 
-var data ={
-    id:10
-};
 
-var token = jwt.sign(data,secret);
+    const jwt =  require('jsonwebtoken');
 
-console.log(token);
+    var data ={
+        id:10
+    };
 
-var decoded =  jwt.verify(token,secret);
+    var token = jwt.sign(data,secret);
 
-console.log("decoded",decoded);
+    console.log(token);
 
+    var decoded =  jwt.verify(token,secret);
+
+    console.log("decoded",decoded);
+
+}
+
+if (true){// using bycrypt
+
+    let password ="123abc";
+    console.log(password);
+
+    bcrypt.genSalt(10,(err,salt)=>{
+        bcrypt.hash(password,salt,(err,hash)=>{
+            console.log(hash);
+        });
+    });
+
+    const hashedPassword = "$2a$10$DWaHVaCa9Xbn6b8bPqa17OXNNf.F7Z2lBgnj0IXoWAG76VJyWwakq";// from clipboard
+    bcrypt.compare(password,hashedPassword, (err,res)=>{
+        console.log(res);
+    })
+
+
+}
