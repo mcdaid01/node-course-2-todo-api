@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt= require("bcryptjs");
 const _ = require("lodash");
 
-const secret = "abc123";
+const secret = "abc123"; // not in course but export to use in seed.js (testing/seed)
 
 const UserSchema = new mongoose.Schema({
     email:{
@@ -87,7 +87,7 @@ UserSchema.pre('save',function(next){
         // call next()
         bcrypt.genSalt(10,(err,salt)=>{
             bcrypt.hash(user.password,salt,(err,hash)=>{
-                console.log(hash);
+               
                 user.password=hash;
                 next();
             });
@@ -99,4 +99,4 @@ UserSchema.pre('save',function(next){
 
 const User = mongoose.model("User",UserSchema);
 
-module.exports = { User };
+module.exports = { User, secret };// again course does not export secret
