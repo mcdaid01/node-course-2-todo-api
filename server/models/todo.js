@@ -1,21 +1,24 @@
-const mongoose =  require("mongoose");
+const mongoose = require('mongoose');
 
 const Todo = mongoose.model('Todo', {
-    text: {
-        type: String, // beware will cast to string if say use a number
-        required: true,
-        minlength: 1, // validate if 1 or more 
-        trim: true // remove leading or trailing white space
-    },
-    completed: {
-        type: Boolean,
-        default: false
-    },
-    completedAt: {
-        type: Number,
-        default: null
-    }
+  text: {
+    type: String,
+    required: true,
+    minlength: 1,
+    trim: true
+  },
+  completed: {
+    type: Boolean,
+    default: false
+  },
+  completedAt: {
+    type: Number,
+    default: null
+  },
+  _creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  }
 });
 
-module.exports = { Todo };
-
+module.exports = {Todo};
