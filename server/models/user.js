@@ -42,19 +42,17 @@ UserSchema.methods.toJSON = function(){
     return _.pick(userObject,["_id","email"]);
 };
 
-// want to bind this keyword hence normal function
-UserSchema.methods.generateAuthToken = function(){
-    const user = this;
-    const access = 'auth';
-    const token = jwt.sign({_id:user._id.toHexString(),access},secret).toString();
-
-    user.tokens.push({access,token});
-
-
+UserSchema.methods.generateAuthToken = function () {
+    var user = this;
+    var access = 'auth';
+    var token = jwt.sign({_id: user._id.toHexString(), access}, secret).toString();
+  
+    user.tokens.push({access, token});
+  
     return user.save().then(() => {
-        return token;
-      });
-};
+      return token;
+    });
+  };
 
 // note statics methods accessed by Model (User.) as opposed to instance methods (user.)
 UserSchema.statics.findByToken = function(token){
